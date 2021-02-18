@@ -60,12 +60,15 @@ router.put(
     '/user',
     passport.authenticate('jwt', { session: false }),
     (req,res) => {
-        //get the token from the request headers
-        let token = req.headers.authorization.split(' ')[1]
-        //decode the token to get the payload details
-        let decoded = jwt.verify(token, process.env.JWT_SECRET)
-        //update a user based on the id from token and update info from body
-        db.User.findByIdAndUpdate(decoded.id, { name: req.body.name })
+
+        //THE HARD WAY
+        // //get the token from the request headers
+        // let token = req.headers.authorization.split(' ')[1]
+        // //decode the token to get the payload details
+        // let decoded = jwt.verify(token, process.env.JWT_SECRET)
+        // //update a user based on the id from token and update info from body
+        
+        db.User.findByIdAndUpdate(req.user._id, { name: req.body.name })
         .then(user => {
             res.status(201).json(user)
         });
