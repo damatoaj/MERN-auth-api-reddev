@@ -7,8 +7,10 @@ mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
-    useCreateIndex: true
+    useCreateIndex: true,
 });
+
+mongoose.set('returnOriginal', false);
 
 //console log on open
 mongoose.connection.once('open', () => 
